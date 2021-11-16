@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Cloud ~<%= directory %>
+    </title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        // $("#pathname").val(window.location.pathname) 
+        $('#uploadForm').attr('action', `/upload-file?path=./public${window.location.pathname}`);
+        $("#uploadForm").submit(function () {
+          $("#status").empty().text("File is uploading...");
+          $(this).ajaxSubmit({
+            error: function (xhr) {
+              status("Error: " + xhr.status);
+            },
+
+            success: function (response) {
+              console.log(response);
+              $("#status").empty().text(response);
+            },
+          });
+
+          return false;
+        });
+      });
+    </script>
+    <style>
+          
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="index">
+            <div class="index-header">Index of
+                <p class="whole-path">
+                    <a href="/" class="each-path">~/</a>
+                    <% ((String(directory)).split('/')).forEach(function(path,i) { %>
+                        <% if(i!==0 && i!==String(directory).split('/').length-1) { %>
+                            <a class="each-path" href=<%=(i>1?"/":"")+(String(directory)).split('/')[i-1]+"/"+path %> >
+                                <%=path %>/</a>
+                            <% } else{ %>
+
+                                <% } %>
+                                    <% }); %>
+                </p>
+            </div>
+        </div>
+        <div class="all-files">
+            <% files.forEach(function(file) { %>
+                <div class="file">
+                    <div class="icon">
+                        <% if(file.type=="file" ) { %>
+                            <i class="far fa-file"></i>
+                            <% } else{ %>
+                                <i class="far fa-folder"></i>
+                                <% } %>
+                    </div>
+                    <div class="file-name">
+                        <a href=<%=directory+ String(file.name).replace(/ /g,'%20') %> >
+                            <% if(file.type=="file" ) { %>
+                                <%= file.name %>
+                                    <% } else{ %>
+                                        <%= file.name %>/
+                                            <% } %>
+                        </a>
+                    </div>
+                    <!-- <% if(String(file.name).split('.').pop()=="pdf" ) { %>
+                            <iframe width="300" height="200" style="overflow: hidden;" scrolling="no" src=<%= directory+ String(file.name).replace(/ /g,'%20')+"#toolbar=0" %>   frameborder="0"></iframe>
+                        <% } else{ %>
+                            <% } %> -->
+                    <div class="file-menu">
+                        <!-- <a href=<%= "/delete-file?path=./public"+directory+ String(file.name).replace(/ /g,'%20') %>  > -->
+                        <i class="fas fa-ellipsis-v"></i>
+                        <!-- </a> -->
+                    </div>
+                </div>
+                <% }); %>
+        </div>
+        <form id="uploadForm" enctype="multipart/form-data" action="" method="post">
+            <input type="file" name="myfile" /><br /><br />
+            <input type="submit" value="Upload Image" name="submit" /><br /><br />
+            <!-- <input type="text" name="pathname" id="pathname" value="/public/uploads/files" /> -->
+            <span id="status"></span>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;  
+    font-family: 'Nunito', sans-serif;  
+}
+a{
+    text-decoration: none;
+    color: #444;
+}
+body{
+    background-image: linear-gradient(185deg, #deeefc 0%, #fff0f0 100%);
+    min-height: 100vh;
+}
+.main{
+    padding: 3rem 4rem;
+    position: relative;
+}
+.main .all-files{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0.2rem;
+    /* justify-content: space-between; */
+    position: relative;
+}
+.main .all-files .file{
+    margin: 30px 60px 30px 0px ;
+    width: calc(25% - 60px);
+    display: flex;
+    position: relative;
+    border: 0.2px solid #aaa;
+    border-radius: 5px;
+    padding: 14px 10px;
+    height: max-content;
+}
+.main .all-files .file .icon{
+    margin-right: 10px;
+}
+.main .all-files .file .icon i{
+    font-size: 1.3rem;
+    color: #333;
+}
+.main .all-files .file .file-name{
+    flex-wrap: wrap;
+    width: calc(100% - 62px);
+}
+.main .all-files .file .file-name a{
+    word-wrap: break-word;
+    /* padding: 0px 5px; */
+
+}
+.main .all-files .file:hover .file-info{
+    visibility: visible;
+    opacity: 1;
+}
+.main .all-files .file .file-info{
+    position: absolute;
+    background-color: #555;
+    color: white;
+    padding: 10px 12px;
+    /* width: 100%; */
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
+    border-radius: 5px;
+    font-size: 0.8rem;
+    z-index: 10;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+.main .all-files .file .file-menu{
+    cursor: pointer;
+    
+}
+.main .all-files .file .file-menu i{
+    color: #444;
+    margin-left: 20px;
+}
+.index-header{
+    display: flex;
+}
+.index-header .whole-path{
+    margin-left: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+.each-path{
+    text-decoration: none;
+    color: black;
+    
+}
+
+@media screen and (max-width:1150px) {
+    .main .all-files .file{
+        width: calc(33% - 60px);
+    }
+}
+
+@media screen and (max-width:950px) {
+    .main .all-files .file{
+        width: calc(50% - 60px);
+    }
+}
+
+@media screen and (max-width:650px) {
+    .main{
+        padding: 3rem 1.5rem;
+    }
+    .main .all-files .file{
+        margin-right: 0px;
+        width: 100%;
+    }
+}
